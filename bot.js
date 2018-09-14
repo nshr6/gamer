@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const dateFormat = require('dateformat');//npm i dateformat
 const ytdl = require('ytdl-core');
+const queue = new Map();
 const YouTube = require('simple-youtube-api');
 const moment = require('moment');
 const request = require('request');
