@@ -922,5 +922,9 @@ function parseDate(str) {
 function datediff(first, second) {
     return Math.round((second-first)/(1000*60*60*24));
 };
+client.on('guildMemberAdd', member => {
+    let name = client.users.get(member.id).username;
+    member.setNickname(`🅶🅻🆇 | ${name}`)
+})
 
 client.login(process.env.BOT_TOKEN);
