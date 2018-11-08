@@ -910,7 +910,7 @@ client.on('message',async message => {
   }
 });
 client.on("guildMemberAdd", m => {
-    if (datediff(parseDate(moment(m.user.createdTimestamp).format('l')), parseDate(moment().format('l'))) < 8) {
+    if (datediff(parseDate(moment(m.user.createdTimestamp).format('l')), parseDate(moment().format('l'))) < 1) {
         m.ban();
     };
 });
