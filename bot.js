@@ -30,7 +30,7 @@ client.on('ready', () => {
     client.user.setStatus("online")
 });
 client.on('ready', () => {
-     client.user.setActivity("Welcome To The Hell ! ",{type: 'WATCHING'});
+     client.user.setActivity("Watch Out ! ",{type: 'WATCHING'});
  
 });
 const prefix = "%"
@@ -54,17 +54,11 @@ hours = hours - 12;
 if (hours == 0) {
 hours = 12;
 }
-client.channels.find('id', '476703905808646144').setName(`Time - ${hours} : ${ReBeeL} : ${ReBeeeL} ${suffix}`)
-client.channels.find('id', '476703947512610826').setName(`Date : ${Codes} - ${CodeS} - ${CoDeS}`)
+client.channels.find('id', '514387856429416479').setName(`Time - ${hours} : ${ReBeeL} : ${ReBeeeL} ${suffix}`)
+client.channels.find('id', '514387898385039371').setName(`Date : ${Codes} - ${CodeS} - ${CoDeS}`)
 }, 1000);
 });
-client.on("ready", () => {
-    setInterval(function(){
-        client.guilds.get("434446086053036054").roles.find("name", "⇁『Special』‏‏༄  ❥").edit({
-            color : "RANDOM"
-        });
-    }, 30000)
-});
+
 client.on('message', message => {
   var id = message.author.id
   if (message.content.startsWith( prefix + "sug")) {
