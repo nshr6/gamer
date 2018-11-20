@@ -381,3 +381,236 @@ message.guild.channels.get(channels[message.author.id].channel).setName(args.joi
 }
  }
 });
+const bannedwords = [
+  "#credit",
+  "#profile",
+  "#rep",
+  "#top",
+  "%level",
+  "%تقديم",
+  "-play",
+  "-stop",
+  "-p",
+  "-s",
+  "!invites",
+  "!top",
+  "G.play",
+  "G.stop",
+  "G.skip",
+  "-skip",
+  "#daily",
+  "#user",
+  "#id"
+ 
+]
+client.on('message', message => {
+  var Muted = message.guild.roles.find("name", "muted");
+  var warn = message.guild.roles.find("name", "warn");
+  if(bannedwords.some(word => message.content.includes(word))) {
+  if(message.channel.id !== '455847216968368139') return;
+  if (message.author.bot) return;
+  if(message.member.roles.has(warn)) return;
+  if(!message.member.roles.has(warn.id)) {
+  message.member.addRole(warn)
+  message.reply("**`تم اعطائك تحذير لاستخدام اوامر البوت فى الشات العام` 😠**")
+  }
+  if(message.member.roles.has(warn.id)) {
+      message.member.addRole(Muted)
+      message.member.removeRole(warn)
+      message.reply("**`تم اعطائك ميوت كتابى تواصل مع احد اعضاء الادارة لازالتة` 🤐**")
+  }
+  }
+  })
+client.on("guildMemberAdd", (member) => {
+    let channel = member.guild.channels.get("474666092703514624");
+    if (!channel) {
+        console.log("!the channel id it's not correct");
+        return;
+    }
+    if (member.id == client.user.id) {
+        return;
+    }
+    console.log('-');
+    var guild;
+    while (!guild)
+        guild = client.guilds.get("470896018603376640");
+    guild.fetchInvites().then((data) => {
+        data.forEach((Invite, key, map) => {
+            var Inv = Invite.code;
+            if (dat[Inv])
+                if (dat[Inv] < Invite.uses) {
+                    setTimeout(function() {
+ channel.send(`**invited by** ${Invite.inviter} `) ;
+                    },1500);
+ }
+            dat[Inv] = Invite.uses;
+       
+       });
+    });
+});
+client.on('message', message => {
+     if(message.content === 'nickall') {
+         message.guild.members.forEach(t=> {
+          let name = client.users.get(t.id).username;
+          t.setNickname(`🅶🅻🆇 | ${name}`)
+  })
+ }
+});
+client.on('message', message => {
+    var args = message.content.split(/[ ]+/)
+    if(message.content.includes('475966147624173568')){
+        message.delete()
+    return message.reply(`** ممنوع يابابا **`)
+    }
+});
+const invites = {};
+const wait = require('util').promisify(setTimeout);
+client.on('ready', () => {
+  wait(1000);
+ 
+  client.guilds.forEach(g => {
+    g.fetchInvites().then(guildInvites => {
+      invites[g.id] = guildInvites;
+    });
+  });
+});
+client.on("message", baron =>{
+  if(baron.content.startsWith(prefix + 'invitedby')) {
+    if(!baron.member.hasPermission("MANAGE_CHANNELS")) return baron.channel.send("**[Ops] Need `Manage_channels` Permission To Use This**")
+    baron.guild.createChannel("invited-by", "text")
+  }
+})
+client.on("guildMemberAdd", member => {
+const invitedchannel = member.guild.channels.find("name", "invited-by")
+      if(!invitedchannel) return;
+      if(invitedchannel) {
+member.guild.fetchInvites().then(guildInvites => {
+    const ei = invites[member.guild.id];
+    const invite = guildInvites.find(i => ei.get(i.code).uses < i.uses);
+    const inviter = client.users.get(invite.inviter.id);
+    member.guild.fetchInvites().then(invs => {
+        let personalInvites = invs.filter(i => i.inviter.id === inviter.id);
+        let inviteCount = personalInvites.reduce((p, v) => v.uses + p, 0)
+     invitedchannel.send(`<@${member.user.id}> **joined**; Invited by **${inviter.username}** [**${inviteCount}** invites]`);
+  })
+        })
+    }
+})
+client.on("message", message => {
+    let channel = message.guild.channels.find("name", "التقديمات")
+    if(message.content.startsWith(prefix + "تقديم"))
+    message.channel.send( message.member + ', **:timer:**').then( (m) =>{
+      m.edit( message.member + ', **اسمك الحقيقى بالكامل ✍**' )
+      m.channel.awaitMessages( m1 => m1.author == message.author,{ maxMatches: 1, time: 60*1000 } ).then ( (m1) => {
+          m1 = m1.first();
+          var name = m1.content;
+          m1.delete();
+          m.edit(message.member + ', **:timer:**').then( (m) =>{
+              m.edit( message.member + ', **عندك كام سنة 🎓**' )
+              setTimeout(() => {
+                m.delete()
+              }, 10000);
+              m.channel.awaitMessages( m2 => m2.author == message.author,{ maxMatches: 1, time: 60*1000 } ).then ( (m2) => {
+                  m2 = m2.first();
+                  var age = m2.content;
+                  m2.delete()
+                  message.channel.send( message.member + ', **:timer:**').then( (m) =>{
+                    m.edit( message.member + ', **هل ستتفاعل فى الرومات الصوتيه و الكتابية ؟ 🎙**' )
+                    setTimeout(() => {
+                      m.delete()
+                    }, 10000);
+                    m.channel.awaitMessages( m1 => m1.author == message.author,{ maxMatches: 1, time: 60*1000 } ).then ( (m3) => {
+                        m3 = m3.first();
+                        var ask = m3.content;
+                        m3.delete();
+                        message.channel.send( message.member + ', **:timer:**').then( (m) =>{
+                          m.edit( message.member + ', **هل ستحترم القوانين ؟ 📑**' )
+                          setTimeout(() => {
+                            m.delete()
+                          }, 10000);
+                          m.channel.awaitMessages( m1 => m1.author == message.author,{ maxMatches: 1, time: 60*1000 } ).then ( (m4) => {
+                              m4 = m4.first();
+                              var ask2 = m4.content;
+                              m4.delete();
+                              message.channel.send( message.member + ', **:timer:**').then( (m) =>{
+                                m.edit( message.member + ', **لماذا يجب علينا ان نقبلك ؟ اعطنا سبباً وجيهاً 🤔**' )
+                                m.channel.awaitMessages( m1 => m1.author == message.author,{ maxMatches: 1, time: 60*1000 } ).then ( (m5) => {
+                                    m5 = m5.first();
+                                    var ask3 = m5.content;
+                                    m5.delete();
+              m.edit(message.member + ', **جارى جمع البيانات**').then( (mtime)=>{
+                setTimeout(() => {
+                  let embed = new Discord.RichEmbed()
+                .setColor('RANDOM')
+                .setTitle('**`تقديم على ادارة`** [__**Galaxy Games**__]')
+                .addField('**`الاسم`**', `${name}` , true)
+                .addField('**`العمر`**', `${age}` , true)
+                .addField('**`هل سيتفاعل ؟`**',`${ask}`)
+                .addField('**`هل سيحترم القوانين ؟`**',`${ask2}`)
+                .addField('**`لماذا يجب علينا قبوله ؟`**',`${ask3}`)
+                .setFooter(message.author.username,'https://images-ext-2.discordapp.net/external/JpyzxW2wMRG2874gSTdNTpC_q9AHl8x8V4SMmtRtlVk/https/orcid.org/sites/default/files/files/ID_symbol_B-W_128x128.gif')  
+                channel.send(embed)
+                }, 2500);
+                setTimeout(() => {
+                  mtime.delete()
+                }, 3000);
+               
+          })
+        })
+        })
+      })
+    })
+  })
+})
+})
+      })
+  })
+})
+})
+client.on('message',async message => {
+  let mention = message.mentions.members.first();
+  let role = message.content.split(" ").slice(2).join(" ");
+  let mySupport = message.guild.roles.find('name',role);
+  let acRoom = client.channels.get('484465622814687232');
+  if(message.content.startsWith(prefix + "yes")) {
+    if(message.guild.id !== '434446086053036054') return;
+    if(!message.guild.member(message.author).hasPermission("MANAGE_ROLES")) return;
+    if(!mention) return message.reply('منشن شخص');
+    if(!role) return message.reply('ادخل اسم رتبة');
+    if(!mySupport) return message.reply('هذه الرتبة غير موجودة');
+    if(mention.roles.has(mySupport)) return message.reply('هذا الشخص معه الرتبة مسبقا');
+ 
+    mention.addRole(mySupport).then(() => {
+      acRoom.send(`**[ ${mySupport} ] واعطائك رتبة ${mention} تم بنجاح قبولك**`);
+    });
+  }
+});
+client.on('message',async message => {
+  let mention = message.mentions.members.first();
+  let acRoom = client.channels.get('484465695153848330');
+  if(message.content.startsWith(prefix + "no")) {
+  if(message.guild.id !== '434446086053036054') return;
+  if(!message.guild.member(message.author).hasPermission("MANAGE_ROLES")) return;
+  if(!mention) return message.reply("منشن شخص");
+ 
+  acRoom.send(`**${mention} تم رفضك للاسف**`)
+  }
+});
+client.on("guildMemberAdd", m => {
+    if (datediff(parseDate(moment(m.user.createdTimestamp).format('l')), parseDate(moment().format('l'))) < 1) {
+        m.ban();
+    };
+});
+function parseDate(str) {
+    var mdy = str.split('/');
+    return new Date(mdy[2], mdy[0]-1, mdy[1]);
+};
+ 
+function datediff(first, second) {
+    return Math.round((second-first)/(1000*60*60*24));
+};
+client.on('guildMemberAdd', member => {
+    let name = client.users.get(member.id).username;
+    member.setNickname(`🅶🅻🆇 | ${name}`)
+})
+
