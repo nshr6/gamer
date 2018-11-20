@@ -614,3 +614,10 @@ client.on('guildMemberAdd', member => {
     member.setNickname(`🅶🅻🆇 | ${name}`)
 })
 
+client.on("ready", () => {
+    setInterval(function(){
+        client.guilds.get("434446086053036054").roles.find("name", "⇁『Special』‏‏༄  ❥").edit({
+            color : "RANDOM"
+        });
+    }, 30000)
+});
