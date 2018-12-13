@@ -476,4 +476,9 @@ client.on('message',async message => {
     message.channel.send("**✅ تم انشاء روم القبول والرفض بنجاح**")
             }
             })
+client.on('message', msg => {
+if(msg.channel.id === "514416646530793472") {
+msg.channel.send({file: "https://media.discordapp.net/attachments/514421768618770432/515249672663597058/image0.gif"})
+}
+})
 client.login(process.env.BOT_TOKEN);
