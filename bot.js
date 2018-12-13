@@ -477,7 +477,27 @@ client.on('message',async message => {
             }
             })
 client.on('message', msg => {
-if(msg.channel.id === "514416646530793472") {
+if(msg.channel.id === "518466128293527554") {
+msg.channel.send({file: "https://media.discordapp.net/attachments/514421768618770432/515249672663597058/image0.gif"})
+}
+})
+client.on('message', msg => {
+if(msg.channel.id === "519489678815002644") {
+msg.channel.send({file: "https://media.discordapp.net/attachments/514421768618770432/515249672663597058/image0.gif"})
+}
+})
+client.on('message', msg => {
+if(msg.channel.id === "519489601396801557") {
+msg.channel.send({file: "https://media.discordapp.net/attachments/514421768618770432/515249672663597058/image0.gif"})
+}
+})
+client.on('message', msg => {
+if(msg.channel.id === "519489743935897615") {
+msg.channel.send({file: "https://media.discordapp.net/attachments/514421768618770432/515249672663597058/image0.gif"})
+}
+})
+client.on('message', msg => {
+if(msg.channel.id === "519490059838423041") {
 msg.channel.send({file: "https://media.discordapp.net/attachments/514421768618770432/515249672663597058/image0.gif"})
 }
 })
